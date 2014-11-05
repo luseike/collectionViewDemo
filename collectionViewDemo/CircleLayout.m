@@ -10,6 +10,11 @@
 
 #define ITEM_SIZE 40
 
+@interface CircleLayout()
+@property(nonatomic,strong) NSMutableArray *deleteIndexPath;
+@property(nonatomic,strong) NSMutableArray *insertIndexPath;
+@end
+
 @implementation CircleLayout
 
 -(void)prepareLayout{
@@ -45,18 +50,67 @@
     return attributes;
 }
 
--(UICollectionViewLayoutAttributes *)initialLayoutAttributesForInsertedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
-    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-    attributes.alpha=0.0;
-    attributes.center=CGPointMake(_center.x, _center.y);
+-(void)prepareForCollectionViewUpdates:(NSArray *)updateItems{
+    [super prepareForCollectionViewUpdates:updateItems];
+    
+    self.deleteIndexPath=[NSMutableArray array];
+    self.insertIndexPath=[NSMutableArray array];
+    
+    for (UICollectionViewUpdateItem *update in updateItems) {
+        if (update.updateAction==UICollectionUpdateActionDelete) {
+            [self.deleteIndexPath addObject:update.indexPathBeforeUpdate];
+        }else if (update.updateAction==UICollectionUpdateActionInsert){
+            [self.insertIndexPath addObject:update.indexPathAfterUpdate];
+        }
+    }
+}
+
+-(void)finalizeCollectionViewUpdates{
+    [super finalizeCollectionViewUpdates];
+    self.deleteIndexPath=nil;
+    self.insertIndexPath=nil;
+}
+
+//-(UICollectionViewLayoutAttributes *)initialLayoutAttributesForInsertedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+//    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
+//    attributes.alpha=0.0;
+//    attributes.center=CGPointMake(_center.x, _center.y);
+//    return attributes;
+//}
+//
+//- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDeletedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+//    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
+//    attributes.alpha=0.0;
+//    attributes.center=CGPointMake(_center.x, _center.y);
+//    attributes.transform3D=CATransform3DMakeScale(0.1, 0.1, 1.0);
+//    return attributes;
+//}
+
+-(UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+    UICollectionViewLayoutAttributes *attributes=[super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    
+    if ([self.insertIndexPath containsObject:itemIndexPath]) {
+        if (!attributes) {
+            attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
+            
+            attributes.alpha=0.0;
+            attributes.center=CGPointMake(_center.x, _center.y);
+        }
+    }
     return attributes;
 }
 
-- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDeletedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
-    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-    attributes.alpha=0.0;
-    attributes.center=CGPointMake(_center.x, _center.y);
-    attributes.transform3D=CATransform3DMakeScale(0.1, 0.1, 1.0);
+-(UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+    UICollectionViewLayoutAttributes *attributes=[super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
+    if ([self.deleteIndexPath containsObject:attributes]) {
+        if (!attributes) {
+            attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
+            
+            attributes.alpha=0.0;
+            attributes.center=CGPointMake(_center.x, _center.y);
+            attributes.transform3D=CATransform3DMakeScale(0.1, 0.1, 1.0);
+        }
+    }
     return attributes;
 }
 
