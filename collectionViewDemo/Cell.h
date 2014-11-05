@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  Cell.h
 //  collectionViewDemo
 //
 //  Created by jyl on 14-11-5.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UICollectionViewController
-@property(nonatomic,assign)NSInteger cellCount;
+@interface Cell : UICollectionViewCell
+@property(nonatomic,strong) UILabel *label;
 @end
