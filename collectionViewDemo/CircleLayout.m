@@ -40,9 +40,18 @@
     return attributes;
 }
 
+/*
+ 返回rect中的所有元素的布局属性
+ 包含UICollectionViewLayoutAttributes的NSArray
+ UICollectionViewLayoutAttributes可以是cell、追加视图或者装饰视图的信息，通过不同的方法，得到不同的类型
+ layoutAttributesForItemAtIndexPath:
+ layoutAttributesForSupplementaryViewOfKind:atIndexPath:
+ layoutAttributesForDecorationViewOfKind:atIndexPath:
+ */
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
     //用来在一开始给出一套UICollectionViewLayoutAttributes
     NSMutableArray *attributes=[NSMutableArray array];
+    
     for (NSInteger i=0; i<self.cellCount; i++) {
         NSIndexPath *indexPath=[NSIndexPath indexPathForItem:i inSection:0];
         [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
@@ -71,31 +80,15 @@
     self.insertIndexPath=nil;
 }
 
-//-(UICollectionViewLayoutAttributes *)initialLayoutAttributesForInsertedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
-//    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-//    attributes.alpha=0.0;
-//    attributes.center=CGPointMake(_center.x, _center.y);
-//    return attributes;
-//}
-//
-//- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDeletedItemAtIndexPath:(NSIndexPath *)itemIndexPath{
-//    UICollectionViewLayoutAttributes *attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-//    attributes.alpha=0.0;
-//    attributes.center=CGPointMake(_center.x, _center.y);
-//    attributes.transform3D=CATransform3DMakeScale(0.1, 0.1, 1.0);
-//    return attributes;
-//}
-
 -(UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
     UICollectionViewLayoutAttributes *attributes=[super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
     
     if ([self.insertIndexPath containsObject:itemIndexPath]) {
-        if (!attributes) {
+        if (!attributes)
             attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-            
-            attributes.alpha=0.0;
-            attributes.center=CGPointMake(_center.x, _center.y);
-        }
+        attributes.alpha = 0.0;
+        attributes.center = CGPointMake(_center.x, _center.y);
+        
     }
     return attributes;
 }
@@ -103,13 +96,12 @@
 -(UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
     UICollectionViewLayoutAttributes *attributes=[super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
     if ([self.deleteIndexPath containsObject:attributes]) {
-        if (!attributes) {
-            attributes=[self layoutAttributesForItemAtIndexPath:itemIndexPath];
-            
-            attributes.alpha=0.0;
-            attributes.center=CGPointMake(_center.x, _center.y);
-            attributes.transform3D=CATransform3DMakeScale(0.1, 0.1, 1.0);
-        }
+        if (!attributes)
+            attributes= [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+        attributes.alpha = 0.0;
+        attributes.center = CGPointMake(_center.x, _center.y);
+        attributes.transform3D = CATransform3DMakeScale(0.1, 0.1, 1.0);
+        
     }
     return attributes;
 }

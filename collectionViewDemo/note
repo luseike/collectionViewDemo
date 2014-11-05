@@ -1,0 +1,8 @@
+UICollectionView的结构
+
+Cells
+Supplementary Views 追加视图（类似Header或者Footer）
+Decoration Views 装饰视图（用作背景展示）
+
+有两个方面对UICollectionView进行支持，其中之一和tableView一样，即提供数据的UICollectionViewDataSource以及处理用户交互的UICollectionViewDelegate。
+另一方面，对应cell的样式和组织方式，由于collectionView比tableView要复杂得多，因此专门使用了一个类来对collectionView的布局和行为进行描述：UICollectionViewLayout

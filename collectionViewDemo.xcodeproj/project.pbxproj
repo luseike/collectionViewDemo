@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26819D931A0A10E10071020A /* note in Resources */ = {isa = PBXBuildFile; fileRef = 26819D921A0A10E10071020A /* note */; };
 		26884B7D1A09D306007E166B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26884B7C1A09D306007E166B /* main.m */; };
 		26884B801A09D306007E166B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26884B7F1A09D306007E166B /* AppDelegate.m */; };
 		26884B881A09D306007E166B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26884B871A09D306007E166B /* Images.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26819D921A0A10E10071020A /* note */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = note; sourceTree = "<group>"; };
 		26884B771A09D306007E166B /* collectionViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = collectionViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26884B7B1A09D306007E166B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26884B7C1A09D306007E166B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				26884B7A1A09D306007E166B /* Supporting Files */,
 				26884BA11A09E1C6007E166B /* Person.h */,
 				26884BA21A09E1C6007E166B /* Person.m */,
+				26819D921A0A10E10071020A /* note */,
 			);
 			path = collectionViewDemo;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			files = (
 				26884B8B1A09D306007E166B /* LaunchScreen.xib in Resources */,
 				26884B881A09D306007E166B /* Images.xcassets in Resources */,
+				26819D931A0A10E10071020A /* note in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +426,7 @@
 				26884B9C1A09D306007E166B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26884B9D1A09D306007E166B /* Build configuration list for PBXNativeTarget "collectionViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +435,7 @@
 				26884B9F1A09D306007E166B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
